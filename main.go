@@ -73,9 +73,24 @@ func colExample() {
 	printTable(tbl)
 }
 
+func shm() error {
+	sh, err := NewSharedMemory("lassie", 1024)
+	if err != nil {
+		return err
+	}
+	defer sh.Close(false)
+
+	copy(sh.Data(), []byte("hello\n"))
+
+	return nil
+}
+
 func main() {
 	// recExample()
-	colExample()
+	// colExample()
+	if err := shm(); err != nil {
+		panic(err)
+	}
 	fmt.Println("OK")
 
 }
