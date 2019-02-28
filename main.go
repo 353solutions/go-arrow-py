@@ -47,8 +47,7 @@ func printTable(tbl array.Table) {
 
 }
 
-func colExample() {
-	pool := memory.NewGoAllocator()
+func colExample(pool memory.Allocator) {
 
 	f1 := arrow.Field{Name: "f1-i64", Type: arrow.PrimitiveTypes.Int64}
 	f2 := arrow.Field{Name: "f2-f64", Type: arrow.PrimitiveTypes.Float64}
@@ -73,7 +72,7 @@ func colExample() {
 	printTable(tbl)
 }
 
-func shm() error {
+func shmExample() error {
 	sh, err := NewSharedMemory("lassie", 1024)
 	if err != nil {
 		return err
@@ -87,10 +86,16 @@ func shm() error {
 
 func main() {
 	// recExample()
-	// colExample()
-	if err := shm(); err != nil {
+	// shmExample()
+	// pool := memory.NewGoAllocator()
+
+	pool, err := NewShmAlloactor("shm-allocator", 1<<20)
+	if err != nil {
 		panic(err)
 	}
+	defer pool.Close(true)
+
+	colExample(pool)
 	fmt.Println("OK")
 
 }

@@ -1,3 +1,7 @@
+/*
+Shared memory allocator. Currently we're just allocating memory on a fixed
+"heap", no free.
+*/
 package main
 
 import (
@@ -34,11 +38,12 @@ func NewShmAlloactor(id string, maxSize int) (*ShmAllocator, error) {
 func (a *ShmAllocator) Allocate(size int) []byte {
 	size = align(size, memAlign)
 	data := a.shm.Data()
-	if a.offset+size > cap(data) {
+	offset := a.offset
+	if offset+size > cap(data) {
 		panic("out of memory")
 	}
 	a.offset += size
-	return data[a.offset:size]
+	return data[offset : offset+size]
 }
 
 // Reallocate reallocates memory
