@@ -1,6 +1,6 @@
-# Go → Arrow → Python
+# Go ↔ Arrow ↔ Python
 
-Trying to share [Arrow](https://arrow.apache.org/) tables from Go to Python via
+Trying to share [Arrow](https://arrow.apache.org/) tables between Go & Python via
 shared memory.
 
 This is an experiment for [frames](https://github.com/v3io/frames)
