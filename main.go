@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/apache/arrow/go/arrow"
 	"github.com/apache/arrow/go/arrow/array"
@@ -97,5 +98,7 @@ func main() {
 
 	colExample(pool)
 	fmt.Println("OK")
-
+	for {
+		time.Sleep(time.Second)
+	}
 }
